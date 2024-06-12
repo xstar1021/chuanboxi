@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>中国人寿</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: linear-gradient(to right, #79DCD2, #6ABBB9);
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+        .title {
+            margin-left: 10px;
+            color: white;
+            font-size: 24px;
+        }
+        .nav {
+            position: relative;
+        }
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav > ul {
+            display: flex;
+        }
+        .nav > ul > li {
+            position: relative;
+            margin: 0 10px;
+        }
+        .nav a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 10px 15px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .nav a:hover, .nav a.active {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown a {
+            color: #2F7140;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+        .nav li:hover > .dropdown {
+            display: block;
+        }
+        .search {
+            display: flex;
+            align-items: center;
+        }
+        .search input[type="text"] {
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+        .search input[type="submit"] {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+        }
+        .banner {
+            width: 100%;
+            height: 300px; /* 您可以根据需要调整高度 */
+            background: url('d:\schoolwork\网页设计与制作\VScode\中国人寿\banner.jpg') no-repeat center center;
+            background-size: cover;
+            margin-top: 10px; /* banner与导航之间的间距 */
+        }
+        /* 如果需要为banner添加文本或其他内容，可以添加以下样式 */
+        .banner-content {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .banner-title {
+            color: #fff;
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+        .banner-subtitle {
+            color: #fff;
+            font-size: 1.2em;
+        }
+        .content {
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            color: #333;
+        }
+        /* 新增网销保险与热销保险板块的样式 */
+        .insurance-section {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #f8f8f8;
+            margin-bottom: 10px;
+        }
+        .insurance-box {
+            flex: 1;
+            padding: 0 10px;
+        }
+        .insurance-title {
+            font-size: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        .insurance-description {
+            margin-bottom: 1em;
+        }
+        .insurance-more {
+            text-align: right;
+            margin-top: 5px;
+        }
+        .insurance-more a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .insurance-more a:hover {
+            text-decoration: underline;
+        }
+        /* 新增推荐新闻与公司公告板块的样式 */
+        .news-announcement {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px;
+            background-color: #f8f8f8;
+            margin-bottom: 10px;
+        }
+        .news, .announcement {
+            flex: 1;
+            padding: 0 10px;
+        }
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        .section-item {
+            margin-bottom: 0.5em;
+        }
+        .more {
+            text-align: right;
+            margin-top: 5px;
+        }
+        .more a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .more a:hover {
+            text-decoration: underline;
+        }
+        /* 新增尾页信息区域的样式 */
+        .footer-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px;
+            background-color: #2F7140;
+            color: white;
+        }
+        .footer-info .info-section {
+            flex: 1;
+            padding: 0 10px;
+        }
+        .footer-info h3 {
+            font-size: 1.2em;
+            margin-bottom: 0.5em;
+        }
+        .footer-info p {
+            margin: 0;
+            margin-bottom: 0.5em;
+        }
+        .footer-info a {
+            color: white;
+            text-decoration: none;
+        }
+        .footer-info a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        // 新增JavaScript代码来处理点击事件
+        window.onload = function() {
+            var hotInsurance = document.getElementById('hot-insurance');
+            var insuranceContent = document.getElementById('insurance-content');
+            
+            hotInsurance.onclick = function() {
+                insuranceContent.style.display = insuranceContent.style.display === 'block' ? 'none' : 'block';
+            };
+        };
+    </script>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo-container">
+        <img src="d:\schoolwork\网页设计与制作\VScode\中国人寿\中国人寿logo.png" alt="中国人寿logo" class="logo">
+    </div>
+    <nav class="nav">
+        <ul>
+            <li><a href="#" class="active">首页</a></li>
+            <li>
+                <a href="#">产品中心</a>
+                <div class="dropdown">
+                    <a href="#">个人保险
+                        <ul>
+                            <li><a href="#">理财保险</a></li>
+                            <li><a href="#">养老保险</a></li>
+                            <li><a href="#">健康保险</a></li>
+                            <li><a href="#">少儿保险</a></li>
+                            <li><a href="#">定期寿险</a></li>
+                            <li><a href="#">终身寿险</a></li>
+                            <li><a href="#">意外保险</a></li>
+                        </ul>
+                    </a>
+                    <a href="#" style="color: #C2C2C2;">团体保险
+                        <ul>
+                            <li><a href="#" style="color: #C2C2C2;">员工福利系列产品</a></li>
+                        </ul>
+                    </a>
+                </div>
+            </li>
+            <li><a href="#">客户服务</a></li>
+            <li><a href="#">网上买保险</a></li>
+            <li><a href="#">新闻和公告</a></li>
+            <li><a href="#">在线自助服务</a></li>
+        </ul>
+    </nav>
+    <div class="search">
+        <input type="text" placeholder="搜索...">
+        <input type="submit" value="搜索">
+    </div>
+</div>
+
+<div class="banner"><img src="d:\schoolwork\网页设计与制作\VScode\中国人寿\banner.jpg" alt="" width="1500px" height="450px">
+</div>
+
+
+<div class="content">
+    <!-- 内容区域 -->
+</div>
+<!-- 新增网销保险板块 -->
+<div class="web-insurance">
+    <h2>网销保险</h2>
+    <p>这里是网销保险的介绍内容。</p>
+</div>
+
+<!-- 新增热销保险板块 -->
+<div id="hot-insurance" class="hot-insurance">
+    <h2>热销保险</h2>
+</div>
+
+<!-- 新增热销保险内容板块 -->
+<div id="insurance-content" class="insurance-content">
+    <!-- 六个内容板块 -->
+    <div>
+        <h3>内容板块1</h3>
+        <p>这里是内容板块1的详细信息。</p>
+    </div>
+    <!-- 重复上面的div来创建其他五个板块 -->
+    <!-- ... -->
+</div>
+<div class="news-announcement">
+    <div class="news">
+        <h2 class="section-title">推荐新闻</h2>
+        <div class="section-item">新闻标题1</div>
+        <div class="section-item">新闻标题2</div>
+        <div class="section-item">新闻标题3</div>
+        <!-- 更多新闻 -->
+    </div>
+    <div class="announcement">
+        <h2 class="section-title">公司公告</h2>
+        <div class="section-item">公告标题1</div>
+        <div class="section-item">公告标题2</div>
+        <div class="section-item">公告标题3</div>
+        <!-- 更多公告 -->
+    </div>
+    <div class="more">
+        <a href="#">更多 &raquo;</a>
+    </div>
+</div>
+<!-- 新增网销保险与热销保险板块 -->
+<div class="insurance-section">
+    <div class="insurance-box">
+        <div class="insurance-title">网销保险</div>
+        <div class="insurance-description">
+            这里是网销保险的介绍内容。
+        </div>
+        <div class="insurance-more">
+            <a href="#">查看更多</a>
+        </div>
+    </div>
+    <div class="insurance-box">
+        <div class="insurance-title">热销保险</div>
+        <div class="insurance-description">
+            这里是热销保险的介绍内容。
+        </div>
+        <div class="insurance-more">
+            <a href="#">查看更多</a>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <!-- 内容区域 -->
+    <div class="footer-info">
+        <div class="info-section left-side">
+            <h3>分公司介绍</h3>
+            <p>这里是分公司介绍的内容。</p>
+            <h3>社会公益</h3>
+            <p>这里是社会公益的内容。</p>
+            <h3>集中采购</h3>
+            <p>这里是集中采购的内容。</p>
+        </div>
+        <div class="info-section right-side">
+            <h3>联系我们</h3>
+            <p>这里是联系我们的内容。</p>
+            <h3>网站地图</h3>
+            <p>这里是网站地图的内容。</p>
+            <h3>法律声明</h3>
+            <p>这里是法律声明的内容。</p>
+        </div>
+</div>
+</body>
+</html>
